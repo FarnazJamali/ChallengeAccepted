@@ -6,6 +6,7 @@ import CityModal from "./CityModal";
 
 class IranMap extends React.Component {
   state = {
+    city: null,
     citiesData: null,
     selectedCity: null,
     isModalOpen: false,
@@ -25,11 +26,11 @@ class IranMap extends React.Component {
     let selectedCity = this.state.selectedCity;
     let isModalOpen = true;
 
-    const { data: cities } = fetch(`http://localhost:9000/cities/${id}`)
+    fetch(`http://localhost:9000/cities/${id}`)
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
-        return json;
+        this.setState({ city: json });
       });
 
     console.log(id);
@@ -45,7 +46,7 @@ class IranMap extends React.Component {
     });
   };
 
-    render() {
+  render() {
     return (
       <div>
         <div className="map-container">
