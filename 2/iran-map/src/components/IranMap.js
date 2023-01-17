@@ -30,12 +30,12 @@ class IranMap extends React.Component {
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
-        this.setState({ city: json });
+        this.setState({ selectedCity: json, isModalOpen });
       });
 
-    console.log(id);
-    selectedCity = id;
-    this.setState({ selectedCity, isModalOpen });
+    // console.log(id);
+    // selectedCity = id;
+    //  this.setState({ isModalOpen });
 
     // Fetch city details and open modal
   };
@@ -65,7 +65,7 @@ class IranMap extends React.Component {
           ))}
         </div>
         <CityModal
-          city={this.state.citiesData}
+          city={this.state.selectedCity}
           isOpen={this.state.isModalOpen}
           onClose={this.closeModal}
         />
