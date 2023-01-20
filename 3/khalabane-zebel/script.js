@@ -70,19 +70,65 @@ game = {
 
   handleDragAndDrop: function () {
     document.querySelectorAll(".option").forEach((option) => {
+      /* draggable element */
       option.addEventListener("dragstart", (e) => {
         e.dataTransfer.setData("text/plain", e.target.id);
+        console.log(e.target);
         setTimeout(() => {
           e.target.classList.add("hidden");
         }, 0);
       });
       option.addEventListener("dragend", (e) => {
+        console.log(e);
         setTimeout(() => {
           e.target.classList.remove("hidden");
         }, 0);
       });
     });
+
     // TODO Implement drag and drop here
+    /* drop targets */
+    const boxes = document.querySelectorAll(".answerBox");  
+
+    boxes.forEach((box) => {
+      box.addEventListener("dragenter", dragEnter);
+      box.addEventListener("dragover", dragOver);
+      box.addEventListener("dragleave", dragLeave);
+      box.addEventListener("drop", drop);
+    });
+
+    function dragEnter(e) {
+      e.preventDefault();
+      e.target.classList.add("hidden");
+    }
+
+    function dragOver(e) {
+      e.preventDefault();
+      e.target.classList.add("hidden");
+    }
+
+    function dragLeave(e) {
+      e.target.classList.remove("hidden");
+    }
+
+    function drop(e) {
+      e.target.classList.remove("hidden");
+
+      // get the draggable element
+      const id = e.dataTransfer.getData("text/plain");
+      const draggable = document.getElementById(id);
+
+      // add it to the drop target
+      e.target.appendChild(draggable);
+
+      // display the draggable element
+      draggable.classList.remove("hidden");
+      // if (answerBox) {
+      // }
+      document.querySelector(
+        "section.colorGame__submitSection > button"
+      ).disabled = false;
+    }
   },
 
   submitButtonClickListener: function () {
